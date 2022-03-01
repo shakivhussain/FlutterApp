@@ -13,12 +13,17 @@ class HomePage extends StatelessWidget {
     var nameDay = "Monday"; // Accept every value
     const pi = 3.14; // never chnge the value
     
-    return Material(
-      child: Center(
+    // in flutter everything is widget
+    return Scaffold( // its have header , body, footer 
+      appBar: AppBar(
+        title: Text("Demo App"),
+      ),
+      body: Center(
         child: Container(
           child: Text("Hii Shakib Mansoori"),
         ),
       ),
+      drawer: Drawer(),
     );
   }
 }
