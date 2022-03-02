@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utills/routes.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+// _ use for to make private class
+class _LoginPageState extends State<LoginPage> {
+  String name = "";
+  bool changeButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -16,42 +25,85 @@ class LoginPage extends StatelessWidget {
                 "assets/images/login_image.png",
                 fit: BoxFit.cover,
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
-              const Text(
-                "Welcome",
+              Text(
+                "Welcome $name ",
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           hintText: " Enter the Username",
                           label: Text("UserName")),
+                      onChanged: (value) {
+                        name = value;
+                        setState(() {});
+                      },
                     ),
                     TextFormField(
                       obscureText: true,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           hintText: " Enter the Password",
                           label: Text("Password")),
+                      onChanged: (value) {
+                        name = value;
+                        setState(
+                            () {}); // it will called build method again ( refresh the content )
+                      },
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 40,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
+
+                    // container
+
+                    InkWell(
+                      onTap: () async {
+                        setState(() {
+                          changeButton = true;
+                        });
+
+                        await Future.delayed(Duration(seconds: 1));
                         Navigator.pushNamed(context, MyRoutes.homeRoutes);
                       },
-                      child: const Text("Submit"),
-                      style: TextButton.styleFrom(minimumSize: Size(150, 45)),
-                    )
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        height: 50,
+                        width: changeButton ? 50 : 150, // true : false
+                        alignment: Alignment.center,
+                        child: changeButton
+                            ? Icon(Icons.done, color: Colors.white)
+                            : Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                        decoration: BoxDecoration(
+                            color: Colors.blueAccent,
+                            // shape: changeButton
+                            //     ? BoxShape.circle
+                            //     : BoxShape.rectangle
+                            borderRadius:
+                                BorderRadius.circular(changeButton ? 50 : 8)),
+                      ),
+                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.pushNamed(context, MyRoutes.homeRoutes);
+                    //   },
+                    //   child: Text("Submit"),
+                    //   style: TextButton.styleFrom(minimumSize: Size(150, 45)),
+                    // )
                   ],
                 ),
               )
