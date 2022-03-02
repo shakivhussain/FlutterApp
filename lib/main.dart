@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
+import 'package:flutter_application_1/utills/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main(List<String> args) {
@@ -15,17 +16,18 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       themeMode: ThemeMode.light,
+      debugShowCheckedModeBanner: false, // will remove the denug text from the corner side
       theme: ThemeData(
           primarySwatch: Colors.deepOrange,
           fontFamily: GoogleFonts.lato().fontFamily),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      initialRoute: "/home", // set custom page
+      initialRoute: "/", // set custom page
       routes: {
-        "/": (context) => HomePage(), // default route ( intent )
-        "/home": (context) => LoginPage(),
-        "/login": (context) => LoginPage()
+        "/": (context) => LoginPage(), // default route ( intent )
+        MyRoutes.homeRoutes: (context) => HomePage(),
+        MyRoutes.loginRoutes: (context) => LoginPage()
       },
     );
   }
