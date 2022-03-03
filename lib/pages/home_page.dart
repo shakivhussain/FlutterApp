@@ -22,17 +22,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
+    await Future.delayed(const Duration(seconds: 2));
+
     var catalogJson = await rootBundle.loadString("assets/files/catalog.json");
 
     // decode json data
     var decodeData = jsonDecode(catalogJson);
     var products = decodeData["products"];
-    print(products);
+
+    CatalogModel.products =
+        List.from(products).map<Item>((item) => Item.fromMap(item)).toList();
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final dummyItems = List.generate(50, (index) => CatalogModel.products[0]);
+    // final dummyItems = List.generate(50, (index) => CatalogModel.products[0]);
 
     // in flutter everything is widget
     return Scaffold(
@@ -43,15 +49,20 @@ class _HomePageState extends State<HomePage> {
       // builder will give you the recycler view, seprator
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: dummyItems.length,
-          // will display the items in list
-          itemBuilder: (context, index) {
-            return ItemWidget(
-              item: dummyItems[index],
-            );
-          },
-        ),
+        child:
+            (CatalogModel.products != null && CatalogModel.products!.isNotEmpty)
+                ? ListView.builder(
+                    itemCount: CatalogModel.products!.length,
+                    // will display the items in list
+                    itemBuilder: (context, index) {
+                      return ItemWidget(
+                        item: CatalogModel.products![index],
+                      );
+                    },
+                  )
+                : Center(
+                    child: CircularProgressIndicator(),
+                  ),
       ),
       drawer: MyDrawer(),
     );
