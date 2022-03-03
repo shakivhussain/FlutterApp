@@ -16,13 +16,23 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       themeMode: ThemeMode.light,
-      debugShowCheckedModeBanner: false, // will remove the denug text from the corner side
+      debugShowCheckedModeBanner:
+          false, // will remove the denug text from the corner side
       theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            color: Colors.white,
+            elevation: 0,
+            iconTheme: IconThemeData(color: Colors.black),
+            toolbarTextStyle: Theme.of(context).textTheme.bodyText2,
+            titleTextStyle: Theme.of(context).textTheme.headline6,
+          ),
           primarySwatch: Colors.deepOrange,
           fontFamily: GoogleFonts.lato().fontFamily),
+
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
+
       initialRoute: MyRoutes.homeRoutes, // set custom page
       routes: {
         "/": (context) => LoginPage(), // default route ( intent )
