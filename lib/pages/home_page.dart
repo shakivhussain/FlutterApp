@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/models/catalog.dart';
 import 'package:flutter_application_1/widgets/drawer.dart';
+import 'package:flutter_application_1/widgets/item_wiget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int num = 10;
-    String name = "Hii";
-
-    var nameDay = "Monday"; // Accept every value
-    const pi = 3.14; // never chnge the value
+    final dummyItems = List.generate(50, (index) => CatalogModel.products[0]);
 
     // in flutter everything is widget
     return Scaffold(
@@ -18,9 +16,17 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Demo App"),
       ),
-      body: Center(
-        child: Container(
-          child: Text("Hii Shakib Mansoori"),
+      // builder will give you the recycler view, seprator
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView.builder(
+          itemCount: dummyItems.length,
+          // will display the items in list
+          itemBuilder: (context, index) {
+            return ItemWidget(
+              item: dummyItems[index],
+            );
+          },
         ),
       ),
       drawer: MyDrawer(),
