@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/utills/routes.dart';
+import 'package:flutter_application_1/widgets/theme/MyThemes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main(List<String> args) {
@@ -18,21 +19,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner:
           false, // will remove the denug text from the corner side
-      theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            color: Colors.white,
-            elevation: 0,
-            iconTheme: IconThemeData(color: Colors.black),
-            toolbarTextStyle: Theme.of(context).textTheme.bodyText2,
-            titleTextStyle: Theme.of(context).textTheme.headline6,
-          ),
-          primarySwatch: Colors.deepOrange,
-          fontFamily: GoogleFonts.lato().fontFamily),
-
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-
+      theme: MyTheme.lightTheme(context),
+      darkTheme: MyTheme.darkTheme(context),
       initialRoute: MyRoutes.homeRoutes, // set custom page
       routes: {
         "/": (context) => LoginPage(), // default route ( intent )
