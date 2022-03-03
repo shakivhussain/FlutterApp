@@ -51,14 +51,43 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(16.0),
         child:
             (CatalogModel.products != null && CatalogModel.products!.isNotEmpty)
-                ? ListView.builder(
-                    itemCount: CatalogModel.products!.length,
-                    // will display the items in list
+                ? GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16),
                     itemBuilder: (context, index) {
-                      return ItemWidget(
-                        item: CatalogModel.products![index],
-                      );
+                      final item = CatalogModel.products![index];
+                      return Card(
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: GridTile(
+                              header: Container(
+                                  child: Text(
+                                    item.name,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  padding: EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.redAccent,
+                                  )),
+                              footer: Container(
+                                  child: Text(
+                                    item.price.toString(),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  padding: EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                  )),
+                              child: Image.network(item.image)));
                     },
+                    itemCount: CatalogModel.products!.length,
                   )
                 : Center(
                     child: CircularProgressIndicator(),
