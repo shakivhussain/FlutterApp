@@ -16,7 +16,17 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       // its have header , body, footer
       appBar: AppBar(
-        title: Text("Demo App"),
+        
+        title: Text(
+          "Demo App",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
+
+
+
       ),
       body: Center(
         child: Container(
