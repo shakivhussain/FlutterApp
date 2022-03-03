@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      initialRoute: "/", // set custom page
+      initialRoute: MyRoutes.homeRoutes, // set custom page
       routes: {
         "/": (context) => LoginPage(), // default route ( intent )
         MyRoutes.homeRoutes: (context) => HomePage(),
