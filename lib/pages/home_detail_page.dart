@@ -13,7 +13,9 @@ class HomeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       backgroundColor: MyTheme.creamWhite,
       bottomNavigationBar: Container(
         color: Colors.white,
@@ -28,7 +30,7 @@ class HomeDetailPage extends StatelessWidget {
                         backgroundColor:
                             MaterialStateProperty.all(MyTheme.darkBluish),
                         shape: MaterialStateProperty.all(StadiumBorder())),
-                    child: "Buy".text.make())
+                    child: "Add To Cart".text.make())
                 .wh(100, 50)
           ],
         ).p32(),
@@ -55,8 +57,14 @@ class HomeDetailPage extends StatelessWidget {
                     catalog.desc.text.sm.make(),
                     // catalog.desc.text.xl.textStyle(context.captionStyle).make(),
                     HeightBox(10),
+
+                    "Raven his more visiter at came spoken nevermore, sitting other hath on he still. More was or still sitting. This pallid this bird evilprophet evermore. Spoken midnight my my flutter yet that thy once i, felt echo ominous with sought, and repeating see disaster the the me and my, more."
+                        .text
+                        .sm
+                        .make()
+                        .p16()
                   ],
-                ).p64(),
+                ).py64(),
               ),
             ))
           ],
