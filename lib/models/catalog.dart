@@ -2,7 +2,19 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class CatalogModel {
- static List<Item>? products ;
+  static List<Item>? products;
+
+  // // Get item by id
+  // Item getById(int id) {
+
+  //  return   products!.firstWhere((element) => element.id == id, orElse: null);
+  // }
+
+  // Get item by id
+ static Item getById(int id) =>
+      products!.firstWhere((element) => element.id == id, orElse: null);
+
+  static Item getpositon(int pos) => products![pos];
 }
 
 class Item {

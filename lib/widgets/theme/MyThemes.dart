@@ -20,7 +20,7 @@ class MyTheme {
       );
 
   static ThemeData darkTheme(BuildContext context) => ThemeData(
-    brightness: Brightness.dark,
+        brightness: Brightness.dark,
         fontFamily: GoogleFonts.poppins().fontFamily,
         cardColor: Colors.black,
         buttonColor: lightBluish,
@@ -30,7 +30,9 @@ class MyTheme {
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.white),
           toolbarTextStyle: Theme.of(context).textTheme.bodyText2,
-          titleTextStyle: Theme.of(context).textTheme.headline6,
+          
+         
+          titleTextStyle: TextStyle(color: Colors.white),
         ),
       );
 
@@ -39,5 +41,4 @@ class MyTheme {
   static Color lightBluish = Vx.indigo500;
   static Color darkBluish = const Color(0xff403b58);
   static Color grey = Vx.gray400;
-
 }

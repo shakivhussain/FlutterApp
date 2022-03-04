@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           false, // will remove the denug text from the corner side
       theme: MyTheme.lightTheme(context),
       darkTheme: MyTheme.darkTheme(context),
-      initialRoute: MyRoutes.loginRoutes, // set custom page
+      initialRoute: MyRoutes.homeRoutes, // set custom page
       routes: {
         // "/": (context) => LoginPage(), // default route ( intent )
         MyRoutes.homeRoutes: (context) => HomePage(),
