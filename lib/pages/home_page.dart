@@ -1,9 +1,14 @@
 import 'dart:convert';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:velocity_x/velocity_x.dart';
+
 import 'package:flutter_application_1/models/catalog.dart';
 import 'package:flutter_application_1/widgets/drawer.dart';
 import 'package:flutter_application_1/widgets/item_wiget.dart';
+import 'package:flutter_application_1/widgets/theme/MyThemes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -42,58 +47,115 @@ class _HomePageState extends State<HomePage> {
 
     // in flutter everything is widget
     return Scaffold(
-      // its have header , body, footer
-      appBar: AppBar(
-        title: Text("Demo App"),
+      backgroundColor: MyTheme.creamWhite,
+      body: SafeArea(
+        child: Container(
+          padding: Vx.m32,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Catalogheader(),
+              if (CatalogModel.products != null &&
+                  CatalogModel.products!.isNotEmpty)
+                CatalogList().expand()
+              else
+                Center(
+                  child: CircularProgressIndicator(),
+                )
+            ],
+          ),
+        ),
       ),
-      // builder will give you the recycler view, seprator
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child:
-            (CatalogModel.products != null && CatalogModel.products!.isNotEmpty)
-                ? GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16),
-                    itemBuilder: (context, index) {
-                      final item = CatalogModel.products![index];
-                      return Card(
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          child: GridTile(
-                              header: Container(
-                                  child: Text(
-                                    item.name,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  padding: EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                    color: Colors.redAccent,
-                                  )),
-                              footer: Container(
-                                  child: Text(
-                                    item.price.toString(),
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  padding: EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                  )),
-                              child: Image.network(item.image)));
-                    },
-                    itemCount: CatalogModel.products!.length,
-                  )
-                : Center(
-                    child: CircularProgressIndicator(),
-                  ),
-      ),
-      drawer: MyDrawer(),
     );
+  }
+}
+
+class Catalogheader extends StatelessWidget {
+  const Catalogheader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        "Catalog App".text.xl5.color(MyTheme.darkBluish).make(),
+        "Trending Products".text.xl2.make()
+      ],
+    );
+  }
+}
+
+class CatalogList extends StatelessWidget {
+  const CatalogList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: CatalogModel.products!.length,
+      itemBuilder: (context, index) {
+        final catalog = CatalogModel.products![index];
+        return CatalogItem(
+          item: catalog,
+        );
+      },
+    );
+  }
+}
+
+class CatalogItem extends StatelessWidget {
+  final Item item;
+
+  const CatalogItem({
+    Key? key,
+    required this.item,
+  })  : assert(item != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Container
+    return VxBox(
+        child: Row(
+      children: [
+        CatalogImage(image: item.image),
+        Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            item.name.text.bold.lg.color(MyTheme.darkBluish).make(),
+            item.desc.text.sm.make(),
+            HeightBox(10),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              buttonPadding: EdgeInsets.zero,
+              children: [
+                "\$${item.price}".text.bold.xl.make(),
+                ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(MyTheme.darkBluish),
+                        shape: MaterialStateProperty.all(StadiumBorder())),
+                    child: "Buy".text.make())
+              ],
+            ).pOnly(right: 8)
+          ],
+        ))
+      ],
+    )).white.roundedLg.square(150).p8.make().py16();
+  }
+}
+
+class CatalogImage extends StatelessWidget {
+  final String image;
+
+  const CatalogImage({Key? key, required this.image}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      image,
+    ).box.rounded.p8.color(MyTheme.creamWhite).make().p16().w40(context);
   }
 }
