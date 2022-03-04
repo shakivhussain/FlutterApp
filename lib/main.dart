@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
     // bringVegitables(); // method calling
 
     return MaterialApp(
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner:
           false, // will remove the denug text from the corner side
       theme: MyTheme.lightTheme(context),
       darkTheme: MyTheme.darkTheme(context),
-      initialRoute: MyRoutes.homeRoutes, // set custom page
+      initialRoute: MyRoutes.loginRoutes, // set custom page
       routes: {
         // "/": (context) => LoginPage(), // default route ( intent )
         MyRoutes.homeRoutes: (context) => HomePage(),

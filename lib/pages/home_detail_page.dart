@@ -16,9 +16,9 @@ class HomeDetailPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-      backgroundColor: MyTheme.creamWhite,
+      backgroundColor: context.theme.canvasColor,
       bottomNavigationBar: Container(
-        color: Colors.white,
+        color: context.theme.cardColor,
         child: ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           buttonPadding: EdgeInsets.zero,
@@ -28,10 +28,10 @@ class HomeDetailPage extends StatelessWidget {
                     onPressed: () {},
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(MyTheme.darkBluish),
+                            MaterialStateProperty.all(context.theme.buttonColor),
                         shape: MaterialStateProperty.all(StadiumBorder())),
                     child: "Add To Cart".text.make())
-                .wh(100, 50)
+                .wh(150, 50)
           ],
         ).p32(),
       ),
@@ -50,17 +50,20 @@ class HomeDetailPage extends StatelessWidget {
               arcType: VxArcType.CONVEY,
               child: Container(
                 width: context.screenWidth,
-                color: Colors.white,
+                color: context.theme.cardColor,
                 child: Column(
                   children: [
-                    catalog.name.text.xl4.bold.color(MyTheme.darkBluish).make(),
-                    catalog.desc.text.sm.make(),
+                    catalog.name.text.xl4.bold
+                        .color(context.theme.accentColor)
+                        .make(),
+                    catalog.desc.text.color(MyTheme.grey).lg.make(),
                     // catalog.desc.text.xl.textStyle(context.captionStyle).make(),
                     HeightBox(10),
 
                     "Raven his more visiter at came spoken nevermore, sitting other hath on he still. More was or still sitting. This pallid this bird evilprophet evermore. Spoken midnight my my flutter yet that thy once i, felt echo ominous with sought, and repeating see disaster the the me and my, more."
                         .text
                         .sm
+                        .color(MyTheme.grey)
                         .make()
                         .p16()
                   ],

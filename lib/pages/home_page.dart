@@ -53,10 +53,10 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.pushNamed(context, MyRoutes.cartRoutes);
         },
-        child: Icon(CupertinoIcons.cart),
-        backgroundColor: MyTheme.darkBluish,
+        child: Icon(CupertinoIcons.cart, color: Colors.white),
+        backgroundColor: context.theme.buttonColor,
       ).p8(),
-      backgroundColor: MyTheme.creamWhite,
+      backgroundColor: context.canvasColor,
       body: SafeArea(
         child: Container(
           padding: Vx.m32,
