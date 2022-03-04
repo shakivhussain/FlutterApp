@@ -2,6 +2,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class CatalogModel {
+// SingleTon, bcz create new object every time
+  static final catModel = CatalogModel._internal();
+  CatalogModel._internal();
+  factory CatalogModel() => catModel;
+
   static List<Item>? products;
 
   // // Get item by id
@@ -14,7 +19,7 @@ class CatalogModel {
   Item getById(int id) =>
       products!.firstWhere((element) => element.id == id, orElse: null);
 
-   Item getpositon(int pos) => products![pos];
+  Item getpositon(int pos) => products![pos];
 }
 
 class Item {

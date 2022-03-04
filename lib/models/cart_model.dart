@@ -1,6 +1,12 @@
 import 'package:flutter_application_1/models/catalog.dart';
 
 class CartModel {
+  // SingleTon, bcz create new object every time
+  static final cartModel = CartModel._internal();
+  CartModel._internal();
+  factory CartModel() => cartModel;
+
+
   // Catalog field
   late CatalogModel _catalog;
 
@@ -18,7 +24,7 @@ class CartModel {
   List<Item> get items => _itemIds.map((id) => _catalog.getById(id)).toList();
 
   // get total price , fold == sum
-  num get TotalPrice =>
+  num get totalPrice =>
       items.fold(0, (total, current) => total + current.price);
 
   // Add items ids
