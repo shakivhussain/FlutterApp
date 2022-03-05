@@ -5,14 +5,15 @@ import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/utills/routes.dart';
 import 'package:flutter_application_1/widgets/theme/MyThemes.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 void main(List<String> args) {
-  runApp(VxState(store: MyStore(,null), child: MyApp()));
+  runApp(VxState(store: MyStore(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
 // Most important method, every time call when we refresh the data
   @override
   Widget build(BuildContext context) {
