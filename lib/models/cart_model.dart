@@ -1,12 +1,8 @@
 import 'package:flutter_application_1/models/catalog.dart';
 
 class CartModel {
-  // SingleTon, bcz create new object every time
-  static final cartModel = CartModel._internal();
-  CartModel._internal();
-  factory CartModel() => cartModel;
-
-
+ 
+ 
   // Catalog field
   late CatalogModel _catalog;
 

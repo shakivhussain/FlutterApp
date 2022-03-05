@@ -2,10 +2,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class CatalogModel {
-// SingleTon, bcz create new object every time
-  static final catModel = CatalogModel._internal();
-  CatalogModel._internal();
-  factory CatalogModel() => catModel;
+
+
 
   static List<Item>? products;
 
