@@ -13,22 +13,43 @@ class CatalogList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: CatalogModel.products!.length,
-      itemBuilder: (context, index) {
-        final catalog = CatalogModel.products![index];
-        return InkWell(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomeDetailPage(catalog: catalog))),
-          child: CatalogItem(
-            item: catalog,
-          ),
-        );
-      },
-    );
+    return !context.isMobile
+        ? GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, crossAxisSpacing: 20),
+            shrinkWrap: true,
+            itemCount: CatalogModel.products!.length,
+            itemBuilder: (context, index) {
+              final catalog = CatalogModel.products![index];
+              return InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomeDetailPage(catalog: catalog))),
+                child: CatalogItem(
+                  item: catalog,
+                ),
+              );
+            },
+          )
+        : ListView.builder(
+            shrinkWrap: true,
+            itemCount: CatalogModel.products!.length,
+            itemBuilder: (context, index) {
+              final catalog = CatalogModel.products![index];
+              return InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomeDetailPage(catalog: catalog))),
+                child: CatalogItem(
+                  item: catalog,
+                ),
+              );
+            },
+          );
   }
 }
 
@@ -44,33 +65,44 @@ class CatalogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Container
+    var children2 = [
+      Hero(
+          tag: Key(item.id.toString()), child: CatalogImage(image: item.image)),
+      Expanded(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          item.name.text.bold.lg.color(context.accentColor).make(),
+          item.desc.text.color(MyTheme.grey).sm.make(),
+          HeightBox(10),
+          ButtonBar(
+            alignment: MainAxisAlignment.spaceBetween,
+            buttonPadding: EdgeInsets.zero,
+            children: [
+              "\$${item.price}".text.bold.xl.make(),
+              AddToCart(
+                catalog: item,
+              )
+            ],
+          ).pOnly(right: 8)
+        ],
+      ).p(context.isMobile ? 0 : 16)
+      )
+    ];
     return VxBox(
-        child: Row(
-      children: [
-        Hero(
-            tag: Key(item.id.toString()),
-            child: CatalogImage(image: item.image)),
-        Expanded(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            item.name.text.bold.lg.color(context.accentColor).make(),
-            item.desc.text.color(MyTheme.grey).sm.make(),
-            HeightBox(10),
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceBetween,
-              buttonPadding: EdgeInsets.zero,
-              children: [
-                "\$${item.price}".text.bold.xl.make(),
-                AddToCart(
-                  catalog: item,
-                )
-              ],
-            ).pOnly(right: 8)
-          ],
-        ))
-      ],
-    )).color(context.cardColor).roundedLg.square(150).p8.make().py16();
+            child: context.isMobile
+                ? Row(
+                    children: children2,
+                  )
+                : Column(
+                    children: children2,
+                  ))
+        .color(context.cardColor)
+        .roundedLg
+        .square(150)
+        .p8
+        .make()
+        .py16();
   }
 }
